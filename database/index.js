@@ -149,6 +149,25 @@ const insertManyPatients = function(patients, cb = err => {}) {
   connection.query(queryString, cb);
 };
 
+const insertManyNurses = function(nurses, cb = err => {}) {
+  let queryString = "INSERT INTO nurses (lastName, firstName) VALUES ";
+  let values = nurses.map(
+    nurse => `("${nurse.lastName}", "${nurse.firstName}")`
+  );
+  queryString = queryString.concat(values.join(", "), ";");
+  connection.query(queryString, cb);
+};
+
+const insertManyDoctors = function(doctors, cb = err => {}) {
+  let queryString = "INSERT INTO doctors (lastName, firstName, areaId) VALUES ";
+  let values = doctors.map(
+    doctor =>
+      `("${doctor.lastName}", "${doctor.firstName}", "${doctor.areaId}")`
+  );
+  queryString = queryString.concat(values.join(", "), ";");
+  connection.query(queryString, cb);
+};
+
 // const selectAll = function(cb) {
 //   return connection.query("SELECT * FROM timers", cb);
 // };
@@ -208,10 +227,22 @@ const insertManyPatients = function(patients, cb = err => {}) {
 module.exports = {
   selectAllPatients,
   insertOnePatient,
-  insertManyPatients
+  insertManyPatients,
+  insertManyNurses,
+  insertManyDoctors
   // selectAll,
   // insertOne,
   // readOne,
   // deleteOne,
   // updateOne
 };
+
+// create table if not exists doctors(
+//                           doctorId INT NOT NULL UNIQUE AUTO_INCREMENT,
+//                           lastName VARCHAR (50) NOT NULL,
+//                           firstName VARCHAR (50) NOT NULL,
+//                           areaId INT,
+//                           FOREIGN KEY (areaId)
+//                               REFERENCES areas(areaId),
+//                           PRIMARY KEY (doctorId)
+//                         );
