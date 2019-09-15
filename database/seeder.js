@@ -10,6 +10,27 @@ let randomGender = function() {
   }
 };
 
+// var patients = [
+//   {
+//     lastName: "Morio",
+//     firstName: "Nubio",
+//     age: 32,
+//     sex: "m"
+//   },
+//   {
+//     lastName: "Korez",
+//     firstName: "Ratalante",
+//     age: 43,
+//     sex: "m"
+//   },
+//   {
+//     lastName: "Rocatagliatta",
+//     firstName: "Lucho",
+//     age: 26,
+//     sex: "m"
+//   }
+// ];
+
 var seedPatients = function() {
   let patients = [];
   for (i = 0; i < 50; i++) {
@@ -73,9 +94,25 @@ var seedDoctors = function() {
 };
 
 var seedResults = function() {
-  let results = [{ stydyType: "Parac" }, { stydyType: "Bchem" }];
-
-  //console.log(doctors);
+  let results = [
+    { studyType: "Parac" },
+    { studyType: "Bchem" },
+    { studyType: "CK" },
+    { studyType: "Umicr" },
+    { studyType: "CT" },
+    { studyType: "Amy" },
+    { studyType: "FBE" },
+    { studyType: "Trop" },
+    { studyType: "XRay" },
+    { studyType: "Trop" },
+    { studyType: "bhCG" },
+    { studyType: "Bgrou" },
+    { studyType: "Coag" },
+    { studyType: "INR" },
+    { studyType: "BGas" },
+    { studyType: "etOH" },
+    { studyType: "Ddim" }
+  ];
 
   db.insertManyResults(results, err => {
     if (err) {
@@ -91,4 +128,4 @@ var seedResults = function() {
 // seedPatients();
 // seedDoctors();
 // seedNurses();
-seedResults();
+// seedResults();
