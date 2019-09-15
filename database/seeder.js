@@ -72,6 +72,23 @@ var seedDoctors = function() {
   });
 };
 
+var seedResults = function() {
+  let results = [{ stydyType: "Parac" }, { stydyType: "Bchem" }];
+
+  //console.log(doctors);
+
+  db.insertManyResults(results, err => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      console.log("succesfully seeded");
+      return;
+    }
+  });
+};
+
 // seedPatients();
 // seedDoctors();
 // seedNurses();
+seedResults();

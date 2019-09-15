@@ -149,6 +149,8 @@ const insertManyPatients = function(patients, cb = err => {}) {
   connection.query(queryString, cb);
 };
 
+//NURSES TABLE
+
 const insertManyNurses = function(nurses, cb = err => {}) {
   let queryString = "INSERT INTO nurses (lastName, firstName) VALUES ";
   let values = nurses.map(
@@ -158,12 +160,23 @@ const insertManyNurses = function(nurses, cb = err => {}) {
   connection.query(queryString, cb);
 };
 
+//DOCTORS TABLE
+
 const insertManyDoctors = function(doctors, cb = err => {}) {
   let queryString = "INSERT INTO doctors (lastName, firstName, areaId) VALUES ";
   let values = doctors.map(
     doctor =>
       `("${doctor.lastName}", "${doctor.firstName}", "${doctor.areaId}")`
   );
+  queryString = queryString.concat(values.join(", "), ";");
+  connection.query(queryString, cb);
+};
+
+//RESULTS TABLE
+
+const insertManyResults = function(results, cb = err => {}) {
+  let queryString = "INSERT INTO results (studyType) VALUES ";
+  let values = results.map(result => `("${result.studyType}")`);
   queryString = queryString.concat(values.join(", "), ";");
   connection.query(queryString, cb);
 };
@@ -229,7 +242,8 @@ module.exports = {
   insertOnePatient,
   insertManyPatients,
   insertManyNurses,
-  insertManyDoctors
+  insertManyDoctors,
+  insertManyResults
   // selectAll,
   // insertOne,
   // readOne,
@@ -246,3 +260,9 @@ module.exports = {
 //                               REFERENCES areas(areaId),
 //                           PRIMARY KEY (doctorId)
 //                         );
+
+// create table if not exists results(
+//                           resultId INT NOT NULL UNIQUE AUTO_INCREMENT,
+//                           studyType VARCHAR (10) NOT NULL,
+//                           PRIMARY KEY (resultId)
+//   );
