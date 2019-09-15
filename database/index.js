@@ -173,10 +173,21 @@ const insertManyDoctors = function(doctors, cb = err => {}) {
 };
 
 //RESULTS TABLE
-
 const insertManyResults = function(results, cb = err => {}) {
   let queryString = "INSERT INTO results (studyType) VALUES ";
   let values = results.map(result => `("${result.studyType}")`);
+  queryString = queryString.concat(values.join(", "), ";");
+  connection.query(queryString, cb);
+};
+
+//RECORDS TABLE
+const insertManyRecords = function(records, cb = err => {}) {
+  let queryString =
+    "INSERT INTO records (patientId, doctorId, description) VALUES ";
+  let values = records.map(
+    record =>
+      `("${record.patientId}", "${record.doctorId}", "${record.description}")`
+  );
   queryString = queryString.concat(values.join(", "), ";");
   connection.query(queryString, cb);
 };
@@ -243,7 +254,8 @@ module.exports = {
   insertManyPatients,
   insertManyNurses,
   insertManyDoctors,
-  insertManyResults
+  insertManyResults,
+  insertManyRecords
   // selectAll,
   // insertOne,
   // readOne,
@@ -266,3 +278,14 @@ module.exports = {
 //                           studyType VARCHAR (10) NOT NULL,
 //                           PRIMARY KEY (resultId)
 //   );
+
+// create table if not exists records(
+//                         recordId INT NOT NULL UNIQUE AUTO_INCREMENT,
+//                         patientId INT NOT NULL,
+//                         doctorId INT NOT NULL,
+//                         description VARCHAR (500) NOT NULL,
+//                         FOREIGN KEY (patientId)
+//                             REFERENCES patients(patientId),
+//                         FOREIGN KEY (doctorId)
+//                             REFERENCES doctors(doctorId),
+//                         PRIMARY KEY (recordId)

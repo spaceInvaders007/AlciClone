@@ -33,7 +33,7 @@ let randomGender = function() {
 
 var seedPatients = function() {
   let patients = [];
-  for (i = 0; i < 50; i++) {
+  for (i = 0; i < 230; i++) {
     patients.push({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
@@ -125,7 +125,30 @@ var seedResults = function() {
   });
 };
 
-// seedPatients();
+var seedRecords = function() {
+  let records = [];
+  for (i = 0; i < 490; i++) {
+    records.push({
+      patientId: Math.floor(Math.random() * 300) + 1,
+      doctorId: Math.floor(Math.random() * 50) + 1,
+      description: faker.lorem.paragraph()
+    });
+  }
+  //console.log(doctors);
+
+  db.insertManyRecords(records, err => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      console.log("succesfully seeded");
+      return;
+    }
+  });
+};
+
+//seedPatients();
 // seedDoctors();
 // seedNurses();
 // seedResults();
+//seedRecords();
