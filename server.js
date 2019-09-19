@@ -41,6 +41,8 @@ app.use(cors());
 //   res.status(201).end();
 // });
 
+
+//patients
 app.get("/patients", async (req, res) => {
   console.log("this is patients response");
   db.selectAllPatients((err, patients) => {
@@ -54,6 +56,49 @@ app.post("/patients", async (req, res) => {
   db.insertOnePatient(req.body);
   res.sendStatus(201).end();
 });
+
+
+//beds
+app.get("/beds", async (req, res) => {
+  console.log("this is beds response");
+  db.selectAllBeds((err, patients) => {
+    if (err) throw err;
+    res.json(patients);
+  });
+});
+
+
+//doctors
+app.get("/doctors", async (req, res) => {
+  console.log("this is doctors response");
+  db.selectAllDoctors((err, doctors) => {
+    if (err) throw err;
+    res.json(doctors);
+  });
+});
+
+//areas
+app.get("/areas", async (req, res) => {
+  console.log("this is areas response");
+  db.selectAllAreas((err, areas) => {
+    if (err) throw err;
+    res.json(areas);
+  });
+});
+
+app.get("/areas/:id", async (req, res) => {
+  db.readOneArea(req.params.id, (err, area) => {
+    // console.log(req.params.id, 'this is req params id')
+    if (area) {
+      res.status(200).json(area);
+      
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
+
 
 app.get("/timers/:id", async (req, res) => {
   db.readOne(req.params.id, (err, timer) => {

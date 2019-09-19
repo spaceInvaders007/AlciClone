@@ -2,7 +2,7 @@ const mysql = require("mysql");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "password",
   database: "alcidion"
 });
 
@@ -44,6 +44,10 @@ const insertManyNurses = function(nurses, cb = err => {}) {
 
 //DOCTORS TABLE
 
+const selectAllDoctors = function(cb) {
+  return connection.query("SELECT * FROM doctors", cb);
+};
+
 const insertManyDoctors = function(doctors, cb = err => {}) {
   let queryString = "INSERT INTO doctors (lastName, firstName, areaId) VALUES ";
   let values = doctors.map(
@@ -76,15 +80,37 @@ const insertManyRecords = function(records, cb = err => {}) {
 
 //BEDS TABLE
 
+const selectAllBeds = function(cb) {
+  return connection.query("SELECT * FROM beds", cb);
+};
+
 const insertManyBeds = function(beds, cb = err => {}) {
   let queryString =
-    "INSERT INTO beds (bedNumber, areaId, patientId, LOS) VALUES ";
+    "INSERT INTO beds (bedNumber, areaId, patientId, LOS, doctorId) VALUES ";
   let values = beds.map(
     bed =>
-      `("${bed.bedNumber}", "${bed.areaId}", "${bed.patientId}", "${bed.LOS}")`
+      `("${bed.bedNumber}", "${bed.areaId}", "${bed.patientId}", "${bed.LOS}", "${bed.doctorId}")`
   );
   queryString = queryString.concat(values.join(", "), ";");
   connection.query(queryString, cb);
+};
+
+//AREAS TABLE
+
+const selectAllAreas = function(cb) {
+  return connection.query("SELECT * FROM areas", cb);
+};
+
+const readOneArea = function(id, cb) {
+  //console.log(id, 'this is id on DB')
+  let sql = "SELECT * FROM areas WHERE areaId = ?";
+  connection.query(sql, [id], (error, result) => {
+    if (error) {
+      cb(console.error(error.message));
+    } else {
+      cb(null, result);
+    }
+  });
 };
 
 
@@ -154,7 +180,11 @@ module.exports = {
   insertManyDoctors,
   insertManyResults,
   insertManyRecords,
-  insertManyBeds
+  insertManyBeds,
+  selectAllBeds,
+  selectAllDoctors,
+  selectAllAreas,
+  readOneArea
   // selectAll,
   // insertOne,
   // readOne,

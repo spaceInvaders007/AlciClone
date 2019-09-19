@@ -6,7 +6,7 @@ const mysql = require("mysql");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "password",
   database: "alcidion"
 });
 
@@ -44,22 +44,17 @@ connection.connect(function(err) {
     }
   });
 
-  let createRecords = `create table if not exists records(
-                        recordId INT NOT NULL UNIQUE AUTO_INCREMENT,
-                        patientId INT NOT NULL,
-                        doctorId INT NOT NULL,
-                        description VARCHAR (500) NOT NULL,
-                        FOREIGN KEY (patientId)
-                            REFERENCES patients(patientId),
-                        FOREIGN KEY (doctorId)
-                            REFERENCES doctors(doctorId),
-                        PRIMARY KEY (recordId)
-                      );`;
+  let createNurses = `create table if not exists nurses(
+    nurseId INT NOT NULL UNIQUE AUTO_INCREMENT,
+    lastName VARCHAR (50) NOT NULL,
+    firstName VARCHAR (50) NOT NULL,
+    PRIMARY KEY (nurseId)
+  );`;
 
-  connection.query(createRecords, function(err, results, fields) {
-    if (err) {
-      console.log(err.message);
-    }
+  connection.query(createNurses, function(err, results, fields) {
+  if (err) {
+  console.log(err.message);
+  }
   });
 
   let createDoctors = `create table if not exists doctors(
@@ -78,18 +73,23 @@ connection.connect(function(err) {
     }
   });
 
-  let createNurses = `create table if not exists nurses(
-                        nurseId INT NOT NULL UNIQUE AUTO_INCREMENT,
-                        lastName VARCHAR (50) NOT NULL,
-                        firstName VARCHAR (50) NOT NULL,
-                        PRIMARY KEY (nurseId)
-                      );`;
+  let createRecords = `create table if not exists records(
+    recordId INT NOT NULL UNIQUE AUTO_INCREMENT,
+    patientId INT NOT NULL,
+    doctorId INT NOT NULL,
+    description VARCHAR (500) NOT NULL,
+    FOREIGN KEY (patientId)
+        REFERENCES patients(patientId),
+    FOREIGN KEY (doctorId)
+        REFERENCES doctors(doctorId),
+    PRIMARY KEY (recordId)
+  );`;
 
-  connection.query(createNurses, function(err, results, fields) {
-    if (err) {
-      console.log(err.message);
-    }
-  });
+  connection.query(createRecords, function(err, results, fields) {
+  if (err) {
+  console.log(err.message);
+  }
+});
 
   let createBeds = `create table if not exists beds(
                       bedId INT NOT NULL UNIQUE AUTO_INCREMENT,
@@ -97,6 +97,9 @@ connection.connect(function(err) {
                       areaId INT,
                       patientId INT NOT NULL,
                       LOS VARCHAR (5),
+                      doctorId INT,
+                      FOREIGN KEY (doctorId)
+                         REFERENCES doctors(doctorId),
                       FOREIGN KEY (areaId)
                          REFERENCES areas(areaId),
                       FOREIGN KEY (patientId)
@@ -112,11 +115,8 @@ connection.connect(function(err) {
 
   let createResults = `create table if not exists results(
                         resultId INT NOT NULL UNIQUE AUTO_INCREMENT,
-                        bedId INT,
                         studyType VARCHAR (10) NOT NULL,
-                        FOREIGN KEY (bedId)
-                          REFERENCES beds(bedId),
-                        PRIMARY KEY (bedId)
+                        PRIMARY KEY (resultId)
 );`;
 
   connection.query(createResults, function(err, results, fields) {
@@ -166,7 +166,7 @@ var seedPatients = function() {
       return "f";
     }
   };
-  for (let i = 0; i < 230; i++) {
+  for (let i = 0; i < 300; i++) {
     patients.push({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
@@ -288,7 +288,8 @@ var seedBeds = function() {
         bedNumber: i,
         areaId: j,
         patientId: Math.floor(Math.random() * 300) + 1,
-        LOS: `${Math.floor(Math.random() * 24) + 1}:${Math.floor(Math.random() * 59) + 0}`
+        LOS: `${Math.floor(Math.random() * 24) + 1}:${Math.floor(Math.random() * 59) + 0}`,
+        doctorId: Math.floor(Math.random() * 50) + 1
       });
     }
   }
