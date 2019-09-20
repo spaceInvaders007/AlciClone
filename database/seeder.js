@@ -95,6 +95,7 @@ connection.connect(function(err) {
                       patientId INT NOT NULL,
                       LOS VARCHAR (5),
                       doctorId INT,
+                      results VARCHAR (100),
                       FOREIGN KEY (doctorId)
                          REFERENCES doctors(doctorId),
                       FOREIGN KEY (areaId)
@@ -276,6 +277,35 @@ var seedRecords = function() {
 
 var seedBeds = function() {
   let beds = [];
+  resultsRandomizer = function() {
+    let results = [
+      { studyType: "Parac" },
+      { studyType: "Bchem" },
+      { studyType: "CK" },
+      { studyType: "Umicr" },
+      { studyType: "CT" },
+      { studyType: "Amy" },
+      { studyType: "FBE" },
+      { studyType: "Trop" },
+      { studyType: "XRay" },
+      { studyType: "Trop" },
+      { studyType: "bhCG" },
+      { studyType: "Bgrou" },
+      { studyType: "Coag" },
+      { studyType: "INR" },
+      { studyType: "BGas" },
+      { studyType: "etOH" },
+      { studyType: "Ddim" }
+    ];
+    let resultString = "";
+    let times = Math.floor(Math.random() * 8) + 3;
+    for (let i = 0; i < times; i++) {
+      let result = Math.floor(Math.random() * 17);
+      let study = results[result].studyType;
+      resultString = `${resultString.concat(study)},`;
+    }
+    return resultString;
+  };
   for (let j = 1; j < 6; j++) {
     for (let i = 1; i < 51; i++) {
       beds.push({
@@ -285,7 +315,8 @@ var seedBeds = function() {
         LOS: `${Math.floor(Math.random() * 24) + 1}:${Math.floor(
           Math.random() * 59
         ) + 0}`,
-        doctorId: Math.floor(Math.random() * 50) + 1
+        doctorId: Math.floor(Math.random() * 50) + 1,
+        results: resultsRandomizer()
       });
     }
   }
@@ -300,9 +331,9 @@ var seedBeds = function() {
   });
 };
 
-seedPatients();
+//seedPatients();
 // seedDoctors();
 // seedNurses();
 // seedResults();
 // seedRecords();
-// seedBeds();
+seedBeds();

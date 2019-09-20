@@ -56,6 +56,10 @@ const insertManyDoctors = function(doctors, cb = err => {}) {
 };
 
 //RESULTS TABLE
+const selectAllResults = function(cb) {
+  return connection.query("SELECT * FROM results", cb);
+};
+
 const insertManyResults = function(results, cb = err => {}) {
   let queryString = "INSERT INTO results (studyType) VALUES ";
   let values = results.map(result => `("${result.studyType}")`);
@@ -83,10 +87,10 @@ const selectAllBeds = function(cb) {
 
 const insertManyBeds = function(beds, cb = err => {}) {
   let queryString =
-    "INSERT INTO beds (bedNumber, areaId, patientId, LOS, doctorId) VALUES ";
+    "INSERT INTO beds (bedNumber, areaId, patientId, LOS, doctorId, results) VALUES ";
   let values = beds.map(
     bed =>
-      `("${bed.bedNumber}", "${bed.areaId}", "${bed.patientId}", "${bed.LOS}", "${bed.doctorId}")`
+      `("${bed.bedNumber}", "${bed.areaId}", "${bed.patientId}", "${bed.LOS}", "${bed.doctorId}", "${bed.results}")`
   );
   queryString = queryString.concat(values.join(", "), ";");
   connection.query(queryString, cb);
@@ -178,7 +182,8 @@ module.exports = {
   selectAllBeds,
   selectAllDoctors,
   selectAllAreas,
-  readOneArea
+  readOneArea,
+  selectAllResults
   // selectAll,
   // insertOne,
   // readOne,

@@ -41,7 +41,6 @@ app.use(cors());
 //   res.status(201).end();
 // });
 
-
 //patients
 app.get("/patients", async (req, res) => {
   console.log("this is patients response");
@@ -57,7 +56,6 @@ app.post("/patients", async (req, res) => {
   res.sendStatus(201).end();
 });
 
-
 //beds
 app.get("/beds", async (req, res) => {
   console.log("this is beds response");
@@ -66,7 +64,6 @@ app.get("/beds", async (req, res) => {
     res.json(patients);
   });
 });
-
 
 //doctors
 app.get("/doctors", async (req, res) => {
@@ -91,14 +88,20 @@ app.get("/areas/:id", async (req, res) => {
     // console.log(req.params.id, 'this is req params id')
     if (area) {
       res.status(200).json(area);
-      
     } else {
       res.sendStatus(404);
     }
   });
 });
 
-
+//results
+app.get("/results", async (req, res) => {
+  console.log("this is results response");
+  db.selectAllResults((err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
 
 app.get("/timers/:id", async (req, res) => {
   db.readOne(req.params.id, (err, timer) => {

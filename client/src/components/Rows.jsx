@@ -5,11 +5,25 @@ class Rows extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      area: ""
+      results: [],
+      resultsName: []
     };
   }
 
-  // async componentDidMount () {
+  // componentDidMount() {
+  //   //console.log(resultsArray);
+
+  //   console.log(resultsLetters);
+  // this.setState({
+  //   resultsName: this.props.resultsName
+  // });
+  // console.log(this.state.resultsName);
+  //console.log(this.props.patientAge[0]);
+
+  // for (let i = 0; i < resultsArray.length; i++) {
+  //   resultsLetters.push(this.props.results[Number(resultsArray[i])]);
+  // }
+  // }
   //   try {
   //     await fetch("/areas/" + this.state.areaId);
   //     let response = await fetch("/areas/" + this.state.areaId);
@@ -32,7 +46,9 @@ class Rows extends React.Component {
   // }
 
   render() {
-    const { LOS, areaId } = this.props.bed;
+    // let resultsArray = this.props.bed.results.split(",").slice(2);
+    // let resultsLetters = this.props.resultsName;
+
     //const {doctor} = this.props.doctor
     //   let patient = this.props.patient[0];
     //  let doctor = this.props.doctor[0]
@@ -155,9 +171,7 @@ const LosWrapper = styled.div`
 const Los = styled.div`
   width: 45px;
   margin-left: 8px;
-
   margin-right: 8px;
-
   align-self: center;
 `;
 

@@ -12,7 +12,8 @@ class Results extends React.Component {
       areaId: "1",
       patients: [],
       doctors: [],
-      area: ""
+      area: "",
+      results: []
       // areas: []
     };
   }
@@ -50,6 +51,15 @@ class Results extends React.Component {
     } catch (err) {
       console.error("Encountered error fetching areas", err);
     }
+    try {
+      await fetch("/results");
+      let response = await fetch("/results");
+      let results = await response.json();
+      //  console.log(results);
+      this.setState({ results: results });
+    } catch (err) {
+      console.error("Encountered error fetching results", err);
+    }
     // try {
     //   await fetch("/areas");
     //   let response = await fetch("/areas");
@@ -64,6 +74,8 @@ class Results extends React.Component {
     this.props.hideResultsDisplay();
   };
   render() {
+    //let resultsArray = this.props.bed.results.split(",").slice(2);
+    // console.log(resultsArray);
     //   var rows = [];
     // for (let i = 1; i < 51; i ++) {
     //   rows.push (
@@ -140,6 +152,7 @@ class Results extends React.Component {
                     return doctor.lastName;
                   })}
                 area={this.state.area}
+                resultsName={this.state.results}
               />
             );
           })}
