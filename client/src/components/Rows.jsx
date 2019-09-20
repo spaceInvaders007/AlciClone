@@ -62,7 +62,9 @@ class Rows extends React.Component {
             <Gender>{this.props.patientSex[0]}</Gender>
             <Age>{this.props.patientAge[0]}y</Age>
           </GenderAge>
-          <Los></Los>
+          <LosWrapper>
+            <Los>{this.props.bed.LOS}</Los>
+          </LosWrapper>
           <Results></Results>
         </RowWrapper>
       </div>
@@ -144,7 +146,20 @@ const Age = styled.div`
   align-self: center;
 `;
 
-const Los = styled.div``;
+const LosWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  border-right: 1px solid #333334;
+`;
+
+const Los = styled.div`
+  width: 45px;
+  margin-left: 8px;
+
+  margin-right: 8px;
+
+  align-self: center;
+`;
 
 const Results = styled.div``;
 
