@@ -1,7 +1,6 @@
 var faker = require("faker");
 const db = require("./index.js");
 
-
 const mysql = require("mysql");
 const connection = mysql.createConnection({
   host: "localhost",
@@ -9,8 +8,6 @@ const connection = mysql.createConnection({
   password: "password",
   database: "alcidion"
 });
-
-
 
 connection.connect(function(err) {
   if (err) {
@@ -52,9 +49,9 @@ connection.connect(function(err) {
   );`;
 
   connection.query(createNurses, function(err, results, fields) {
-  if (err) {
-  console.log(err.message);
-  }
+    if (err) {
+      console.log(err.message);
+    }
   });
 
   let createDoctors = `create table if not exists doctors(
@@ -86,10 +83,10 @@ connection.connect(function(err) {
   );`;
 
   connection.query(createRecords, function(err, results, fields) {
-  if (err) {
-  console.log(err.message);
-  }
-});
+    if (err) {
+      console.log(err.message);
+    }
+  });
 
   let createBeds = `create table if not exists beds(
                       bedId INT NOT NULL UNIQUE AUTO_INCREMENT,
@@ -131,9 +128,6 @@ connection.connect(function(err) {
     }
   });
 });
-
-
-
 
 // var patients = [
 //   {
@@ -282,13 +276,15 @@ var seedRecords = function() {
 
 var seedBeds = function() {
   let beds = [];
-  for (let j = 1; j < 6; j ++){
+  for (let j = 1; j < 6; j++) {
     for (let i = 1; i < 51; i++) {
       beds.push({
         bedNumber: i,
         areaId: j,
         patientId: Math.floor(Math.random() * 300) + 1,
-        LOS: `${Math.floor(Math.random() * 24) + 1}:${Math.floor(Math.random() * 59) + 0}`,
+        LOS: `${Math.floor(Math.random() * 24) + 1}:${Math.floor(
+          Math.random() * 59
+        ) + 0}`,
         doctorId: Math.floor(Math.random() * 50) + 1
       });
     }
@@ -304,8 +300,7 @@ var seedBeds = function() {
   });
 };
 
-
-// seedPatients();
+seedPatients();
 // seedDoctors();
 // seedNurses();
 // seedResults();

@@ -8,15 +8,12 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-
-
 //PATIENTS TABLE
 const selectAllPatients = function(cb) {
   return connection.query("SELECT * FROM patients", cb);
 };
 
 const insertOnePatient = function(patient, cb) {
-  console.log("TCL: insertOnePatient -> 'hello'", "hello");
   connection.query("INSERT INTO patients SET ?", patient, cb);
 };
 
@@ -25,7 +22,7 @@ const insertManyPatients = function(patients, cb = err => {}) {
     "INSERT INTO patients (lastName, firstName, age, sex) VALUES ";
   let values = patients.map(
     patient =>
-      `("${patient.lastName}", "${patient.firstName}", "${patient.age}", "${patient.sex}")`
+      `("${patient.lastName}", "${patient.firstName}", "${patient.age}", upper("${patient.sex}"))`
   );
   queryString = queryString.concat(values.join(", "), ";");
   connection.query(queryString, cb);
@@ -112,9 +109,6 @@ const readOneArea = function(id, cb) {
     }
   });
 };
-
-
-
 
 // const selectAll = function(cb) {
 //   return connection.query("SELECT * FROM timers", cb);

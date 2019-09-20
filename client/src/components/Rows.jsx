@@ -51,11 +51,17 @@ class Rows extends React.Component {
               <FirstName>&nbsp; {this.props.patientFirstName[0]}</FirstName>
             </PatientName>
             <PatientIdAndDoctor>
-              <Urn>URN {this.props.patientId[0]}</Urn>
+              <Urn>
+                <span style={{ color: "#616062" }}>URN</span>{" "}
+                {this.props.patientId[0]}
+              </Urn>
               <Doctor>Dr {this.props.doctor[0]}</Doctor>
             </PatientIdAndDoctor>
           </Patient>
-          <GenderAge></GenderAge>
+          <GenderAge>
+            <Gender>{this.props.patientSex[0]}</Gender>
+            <Age>{this.props.patientAge[0]}y</Age>
+          </GenderAge>
           <Los></Los>
           <Results></Results>
         </RowWrapper>
@@ -78,18 +84,9 @@ const AreaBed = styled.div`
   display: flex;
   flex-direction: column;
   width: 100px;
+  border-right: 1px solid #333334;
+  height: 100%;
 `;
-
-const Patient = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const GenderAge = styled.div``;
-
-const Los = styled.div``;
-
-const Results = styled.div``;
 
 const Area = styled.div`
   margin: 0 auto;
@@ -100,6 +97,14 @@ const Bed = styled.div`
   margin: 0 auto;
 `;
 
+const Patient = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+  border-right: 1px solid #333334;
+  height: 100%;
+`;
+
 const FirstName = styled.div``;
 
 const LastName = styled.div``;
@@ -108,7 +113,9 @@ const Urn = styled.div`
   margin-right: 8px;
 `;
 
-const Doctor = styled.div``;
+const Doctor = styled.div`
+  color: #616062;
+`;
 
 const PatientName = styled.div`
   display: flex;
@@ -117,7 +124,29 @@ const PatientName = styled.div`
 
 const PatientIdAndDoctor = styled.div`
   display: flex;
+  width: 220px;
 `;
+
+const GenderAge = styled.div`
+  display: flex;
+  margin-left: 8px;
+  border-right: 1px solid #333334;
+  height: 100%;
+  width: 60px;
+`;
+
+const Gender = styled.div`
+  margin-right: 8px;
+  align-self: center;
+`;
+
+const Age = styled.div`
+  align-self: center;
+`;
+
+const Los = styled.div``;
+
+const Results = styled.div``;
 
 //   if (this.props.number % 2 === 0) {
 //     background-color: black
