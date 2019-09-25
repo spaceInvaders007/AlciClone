@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Result from "./Result.jsx";
 
 class Rows extends React.Component {
   constructor(props) {
@@ -10,70 +11,38 @@ class Rows extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   //console.log(resultsArray);
-
-  //   console.log(resultsLetters);
-  // this.setState({
-  //   resultsName: this.props.resultsName
-  // });
-  // console.log(this.state.resultsName);
-  //console.log(this.props.patientAge[0]);
-
-  // for (let i = 0; i < resultsArray.length; i++) {
-  //   resultsLetters.push(this.props.results[Number(resultsArray[i])]);
-  // }
-  // }
-  //   try {
-  //     await fetch("/areas/" + this.state.areaId);
-  //     let response = await fetch("/areas/" + this.state.areaId);
-  //     let area = await response.json();
-  //     this.setState({ area });
-  //   } catch (err) {
-  //     console.error("Encountered error fetching areas", err);
-  //   }
-  // }
-
-  // async handleDelete(id) {
-  //   try {
-  //     await fetch("/timers/" + id, {
-  //       method: "DELETE",
-  //       body: JSON.stringify({ id })
-  //     });
-  //   } catch (err) {
-  //     console.log(err, "Couldn't delete one timer");
-  //   }
-  // }
+  componentDidMount() {
+    let results = this.props.bed.results.split(",").slice(0, -1);
+    this.setState({
+      results
+    });
+  }
 
   render() {
-    // let resultsArray = this.props.bed.results.split(",").slice(2);
-    // let resultsLetters = this.props.resultsName;
-
-    //const {doctor} = this.props.doctor
-    //   let patient = this.props.patient[0];
-    //  let doctor = this.props.doctor[0]
-    //console.log(this.props.doctor[0])
-    //console.log(patient.firstName)
     return (
       <div className="row">
         <RowWrapper number={this.props.number}>
-          <AreaBed>
-            <Area>{this.props.area}</Area>
-            <Bed>{this.props.bed.bedNumber}</Bed>
-          </AreaBed>
-          <Patient>
-            <PatientName>
-              <LastName>{this.props.patientLastName[0]},</LastName>
-              <FirstName>&nbsp; {this.props.patientFirstName[0]}</FirstName>
-            </PatientName>
-            <PatientIdAndDoctor>
-              <Urn>
-                <span style={{ color: "#616062" }}>URN</span>{" "}
-                {this.props.patientId[0]}
-              </Urn>
-              <Doctor>Dr {this.props.doctor[0]}</Doctor>
-            </PatientIdAndDoctor>
-          </Patient>
+          <AreaBedWrapper>
+            <AreaBed>
+              <Area>{this.props.area}</Area>
+              <Bed>{this.props.bed.bedNumber}</Bed>
+            </AreaBed>
+          </AreaBedWrapper>
+          <PatientWrapper>
+            <Patient>
+              <PatientName>
+                <LastName>{this.props.patientLastName[0]},</LastName>
+                <FirstName>&nbsp; {this.props.patientFirstName[0]}</FirstName>
+              </PatientName>
+              <PatientIdAndDoctor>
+                <Urn>
+                  <span style={{ color: "#616062" }}>URN</span>{" "}
+                  {this.props.patientId[0]}
+                </Urn>
+                <Doctor>Dr {this.props.doctor[0]}</Doctor>
+              </PatientIdAndDoctor>
+            </Patient>
+          </PatientWrapper>
           <GenderAge>
             <Gender>{this.props.patientSex[0]}</Gender>
             <Age>{this.props.patientAge[0]}y</Age>
@@ -81,7 +50,12 @@ class Rows extends React.Component {
           <LosWrapper>
             <Los>{this.props.bed.LOS}</Los>
           </LosWrapper>
-          <Results></Results>
+          <Results>
+            {this.state.results.map((result, index) => {
+              return <Result result={result} key={index} />;
+            })}
+          </Results>
+          <ReadResultsCounter></ReadResultsCounter>
         </RowWrapper>
       </div>
     );
@@ -93,10 +67,12 @@ export default Rows;
 const RowWrapper = styled.div`
   color: white;
   background: ${props => (props.number % 2 === 0 ? "#383638" : "#232824")};
-  height: 50px;
+  height: 55px;
   display: flex;
   align-items: center;
 `;
+
+const AreaBedWrapper = styled.div``;
 
 const AreaBed = styled.div`
   display: flex;
@@ -114,6 +90,8 @@ const Area = styled.div`
 const Bed = styled.div`
   margin: 0 auto;
 `;
+
+const PatientWrapper = styled.div``;
 
 const Patient = styled.div`
   display: flex;
@@ -175,7 +153,13 @@ const Los = styled.div`
   align-self: center;
 `;
 
-const Results = styled.div``;
+const Results = styled.div`
+  display: flex;
+  overflow: auto;
+  width: 760px;
+`;
+
+const ReadResultsCounter = styled.div``;
 
 //   if (this.props.number % 2 === 0) {
 //     background-color: black

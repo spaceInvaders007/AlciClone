@@ -74,25 +74,28 @@ class Results extends React.Component {
     this.props.hideResultsDisplay();
   };
   render() {
-    //let resultsArray = this.props.bed.results.split(",").slice(2);
+    // let resultsArray = this.props.bed.results.split(",");
+
     // console.log(resultsArray);
-    //   var rows = [];
-    // for (let i = 1; i < 51; i ++) {
-    //   rows.push (
-    //      <Rows number={i} key={i}/>
-    //     )
-    // }
+
     return (
       <div className="App">
         <header className="App-header"></header>
-        <Area>Area</Area>
-        <Filter>Filter</Filter>
-        <Sort>Sort</Sort>
-        <Set>Set</Set>
-        <Link to="/">
-          <Home onClick={this.handleHomeClick}>Home</Home>
-        </Link>
-        <BlueBar></BlueBar>
+        <TopNav>
+          <Area>Area</Area>
+          <Filter>Filter</Filter>
+          <Sort>Sort</Sort>
+          <Set>Set</Set>
+          <Link to="/">
+            <Home onClick={this.handleHomeClick}>Home</Home>
+          </Link>
+        </TopNav>
+        <BlueBar>
+          <AreaBed>Area / Bed</AreaBed>
+          <NameDetails>Name & Details</NameDetails>
+          <LOS>LOS</LOS>
+          <ResultsTitle>Results</ResultsTitle>
+        </BlueBar>
         {/* <RowStyle > */}
         {/* {rows} */}
 
@@ -152,7 +155,6 @@ class Results extends React.Component {
                     return doctor.lastName;
                   })}
                 area={this.state.area}
-                resultsName={this.state.results}
               />
             );
           })}
@@ -166,14 +168,109 @@ export default Results;
 const BlueBar = styled.div`
   height: 25px;
   background-image: linear-gradient(#1a2e41, #253945);
+  display: flex;
+  justify-content: flex-start;
+  color: #616062;
 `;
 
-const Area = styled.button``;
+const TopNav = styled.div`
+  background-color: #0f0d0a;
+  display: flex;
+  justify-content: center;
+`;
 
-const Filter = styled.button``;
+const Area = styled.div`
+  border: none;
+  margin: 4px 8px;
+  background-image: linear-gradient(#1b1a1c, #0f0e11);
+  color: white;
+  border-radius: 6px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  cursor: pointer;
+  :hover {
+    background-image: linear-gradient(#1b1a1c, #114373);
+  }
+`;
 
-const Sort = styled.button``;
+const Filter = styled.button`
+  border: none;
+  margin: 4px 8px;
+  background-image: linear-gradient(#1b1a1c, #0f0e11);
+  color: white;
+  border-radius: 6px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  cursor: pointer;
+  :hover {
+    background-image: linear-gradient(#1b1a1c, #114373);
+  }
+`;
 
-const Set = styled.button``;
+const Sort = styled.button`
+  border: none;
+  margin: 4px 8px;
+  background-image: linear-gradient(#1b1a1c, #0f0e11);
+  color: white;
+  border-radius: 6px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  cursor: pointer;
+  :hover {
+    background-image: linear-gradient(#1b1a1c, #114373);
+  }
+`;
 
-const Home = styled.button``;
+const Set = styled.button`
+  border: none;
+  margin: 4px 8px;
+  background-image: linear-gradient(#1b1a1c, #0f0e11);
+  color: white;
+  border-radius: 6px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  cursor: pointer;
+  :hover {
+    background-image: linear-gradient(#1b1a1c, #114373);
+  }
+`;
+
+const Home = styled.button`
+  border: none;
+  margin: 4px 8px;
+  background-image: linear-gradient(#1b1a1c, #0f0e11);
+  color: white;
+  border-radius: 6px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  cursor: pointer;
+  :hover {
+    background-image: linear-gradient(#1b1a1c, #114373);
+  }
+`;
+
+const AreaBed = styled.div`
+  width: 100px;
+  padding-left: 5px;
+  align-self: center;
+`;
+
+const NameDetails = styled.div`
+  width: 298px;
+  align-self: center;
+`;
+
+const LOS = styled.div`
+  width: 62px;
+  align-self: center;
+`;
+
+const ResultsTitle = styled.div`
+  width: 800px;
+  align-self: center;
+`;
