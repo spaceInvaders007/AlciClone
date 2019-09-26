@@ -10,12 +10,13 @@ class Result extends React.Component {
   }
 
   componentDidMount() {
-    let number = Math.floor(Math.random() * 4 + 0);
+    let number = Math.floor(Math.random() * 5 + 0);
     let backgrounds = [
       "linear-gradient(#a09fa3, #565957)",
       "linear-gradient(#418A53, #224D2E)",
       "linear-gradient(#E23C35, #551516)",
-      "linear-gradient(#EE8D3F, #9E5A27)"
+      "linear-gradient(#EE8D3F, #9E5A27)",
+      "linear-gradient(#41464C, #2A2D37)"
     ];
     this.setState({
       backgroundImage: backgrounds[number]

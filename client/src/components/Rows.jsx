@@ -7,14 +7,28 @@ class Rows extends React.Component {
     super(props);
     this.state = {
       results: [],
-      resultsName: []
+      resultsName: [],
+      randomRead: "",
+      backgroundImage: ""
     };
   }
 
   componentDidMount() {
     let results = this.props.bed.results.split(",").slice(0, -1);
+    let randomRead = Math.floor(Math.random() * results.length + 1);
     this.setState({
-      results
+      results,
+      randomRead
+    });
+    let number = Math.floor(Math.random() * 4 + 0);
+    let backgrounds = [
+      "linear-gradient(#a09fa3, #565957)",
+      "linear-gradient(#41464C, #2A2D37)",
+      "linear-gradient(#E23C35, #551516)",
+      "linear-gradient(#EE8D3F, #9E5A27)"
+    ];
+    this.setState({
+      backgroundImage: backgrounds[number]
     });
   }
 
@@ -55,7 +69,12 @@ class Rows extends React.Component {
               return <Result result={result} key={index} />;
             })}
           </Results>
-          <ReadResultsCounter></ReadResultsCounter>
+          <ReadResultsCounter background={this.state.backgroundImage}>
+            <TopLineReadResults>
+              {this.state.randomRead} of {this.state.results.length}
+            </TopLineReadResults>
+            <BotLineReadResults>unread</BotLineReadResults>
+          </ReadResultsCounter>
         </RowWrapper>
       </div>
     );
@@ -97,7 +116,7 @@ const Patient = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  border-right: 1px solid #333334;
+  /* border-right: 1px solid #333334; */
   height: 100%;
 `;
 
@@ -120,7 +139,7 @@ const PatientName = styled.div`
 
 const PatientIdAndDoctor = styled.div`
   display: flex;
-  width: 220px;
+  width: 260px;
 `;
 
 const GenderAge = styled.div`
@@ -157,9 +176,27 @@ const Results = styled.div`
   display: flex;
   overflow: auto;
   width: 760px;
+  border-right: 1px solid #333334;
 `;
 
-const ReadResultsCounter = styled.div``;
+const ReadResultsCounter = styled.div`
+  background-image: ${props =>
+    props.background || "linear-gradient(#a09fa3, #565957)"};
+  width: 60px;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+`;
+
+const TopLineReadResults = styled.div`
+  margin: 0 auto;
+`;
+
+const BotLineReadResults = styled.div`
+  margin: 0 auto;
+`;
 
 //   if (this.props.number % 2 === 0) {
 //     background-color: black

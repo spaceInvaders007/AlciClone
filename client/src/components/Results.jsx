@@ -2,6 +2,12 @@ import React from "react";
 import Rows from "./Rows.jsx";
 import styled from "styled-components";
 import { Link } from "@reach/router";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 class Results extends React.Component {
   constructor(props) {
@@ -14,7 +20,6 @@ class Results extends React.Component {
       doctors: [],
       area: "",
       results: []
-      // areas: []
     };
   }
 
@@ -73,6 +78,8 @@ class Results extends React.Component {
   handleHomeClick = () => {
     this.props.hideResultsDisplay();
   };
+
+  handleAreaClick = () => {};
   render() {
     // let resultsArray = this.props.bed.results.split(",");
 
@@ -82,7 +89,13 @@ class Results extends React.Component {
       <div className="App">
         <header className="App-header"></header>
         <TopNav>
-          <Area>Area</Area>
+          <Area onClick={this.handleAreaClick}>
+            <AreaButtonLeftSide>
+              <AreaButtonDesc>Area</AreaButtonDesc>
+              <AreaButtonTriangle>&#9660;</AreaButtonTriangle>
+            </AreaButtonLeftSide>
+            <AreaButtonRightSide>{this.state.area}</AreaButtonRightSide>
+          </Area>
           <Filter>Filter</Filter>
           <Sort>Sort</Sort>
           <Set>Set</Set>
@@ -96,12 +109,6 @@ class Results extends React.Component {
           <LOS>LOS</LOS>
           <ResultsTitle>Results</ResultsTitle>
         </BlueBar>
-        {/* <RowStyle > */}
-        {/* {rows} */}
-
-        {/* </RowStyle> */}
-        {/* <button onClick={this.handleResultsClick}>Results</button>
-          <Results style={{display: this.state.resultsDisplay}}/> */}
         {this.state.beds
           .filter(bed => {
             return bed.areaId === Number(this.state.areaId);
@@ -180,13 +187,16 @@ const TopNav = styled.div`
 `;
 
 const Area = styled.div`
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
   border: none;
   margin: 4px 8px;
   background-image: linear-gradient(#1b1a1c, #0f0e11);
   color: white;
   border-radius: 6px;
   height: 40px;
-  width: 120px;
+  width: 160px;
   font-size: 18px;
   cursor: pointer;
   :hover {
@@ -255,22 +265,46 @@ const Home = styled.button`
 `;
 
 const AreaBed = styled.div`
-  width: 100px;
+  min-width: 100px;
   padding-left: 5px;
   align-self: center;
 `;
 
 const NameDetails = styled.div`
-  width: 298px;
+  min-width: 338px;
   align-self: center;
 `;
 
 const LOS = styled.div`
-  width: 62px;
+  min-width: 62px;
   align-self: center;
 `;
 
 const ResultsTitle = styled.div`
-  width: 800px;
+  min-width: 800px;
   align-self: center;
+`;
+
+const AreaButtonLeftSide = styled.div`
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const AreaButtonDesc = styled.div`
+  margin: 0 auto;
+  color: #a3a8a5;
+`;
+
+const AreaButtonTriangle = styled.div`
+  margin: 0 auto;
+  color: #070607;
+  text-shadow: 1px 1px 2px #888888;
+`;
+
+const AreaButtonRightSide = styled.div`
+  font-size: 16px;
+  align-self: center;
+  margin-left: 20px;
+  color: #a3a8a5;
 `;
