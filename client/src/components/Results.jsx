@@ -1,13 +1,7 @@
 import React from "react";
 import Rows from "./Rows.jsx";
 import styled from "styled-components";
-import { Link } from "@reach/router";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import TopNav from "./TopNav.jsx";
 
 class Results extends React.Component {
   constructor(props) {
@@ -19,7 +13,8 @@ class Results extends React.Component {
       patients: [],
       doctors: [],
       area: "",
-      results: []
+      results: [],
+      areas: []
     };
   }
 
@@ -65,44 +60,38 @@ class Results extends React.Component {
     } catch (err) {
       console.error("Encountered error fetching results", err);
     }
-    // try {
-    //   await fetch("/areas");
-    //   let response = await fetch("/areas");
-    //   let areas = await response.json();
-    //   this.setState({ areas });
-    // } catch (err) {
-    //   console.error("Encountered error fetching areas", err);
-    // }
+    try {
+      await fetch("/areas");
+      let response = await fetch("/areas");
+      let areas = await response.json();
+      this.setState({ areas });
+    } catch (err) {
+      console.error("Encountered error fetching areas", err);
+    }
   }
 
   handleHomeClick = () => {
     this.props.hideResultsDisplay();
   };
 
-  handleAreaClick = () => {};
+  handleAreaClick = event => {
+    console.log(event.value);
+    //event.persist();
+    // this.setState({
+    //   areaId: event
+    // });
+  };
   render() {
-    // let resultsArray = this.props.bed.results.split(",");
-
-    // console.log(resultsArray);
-
     return (
       <div className="App">
         <header className="App-header"></header>
-        <TopNav>
-          <Area onClick={this.handleAreaClick}>
-            <AreaButtonLeftSide>
-              <AreaButtonDesc>Area</AreaButtonDesc>
-              <AreaButtonTriangle>&#9660;</AreaButtonTriangle>
-            </AreaButtonLeftSide>
-            <AreaButtonRightSide>{this.state.area}</AreaButtonRightSide>
-          </Area>
-          <Filter>Filter</Filter>
-          <Sort>Sort</Sort>
-          <Set>Set</Set>
-          <Link to="/">
-            <Home onClick={this.handleHomeClick}>Home</Home>
-          </Link>
-        </TopNav>
+        <TopNav
+          handleAreaClick={this.handleAreaClick}
+          area={this.state.area}
+          areas={this.state.areas}
+          handleHomeClick={this.handleHomeClick}
+        />
+
         <BlueBar>
           <AreaBed>Area / Bed</AreaBed>
           <NameDetails>Name & Details</NameDetails>
@@ -180,90 +169,6 @@ const BlueBar = styled.div`
   color: #616062;
 `;
 
-const TopNav = styled.div`
-  background-color: #0f0d0a;
-  display: flex;
-  justify-content: center;
-`;
-
-const Area = styled.div`
-  font-size: 16px;
-  display: flex;
-  justify-content: flex-start;
-  border: none;
-  margin: 4px 8px;
-  background-image: linear-gradient(#1b1a1c, #0f0e11);
-  color: white;
-  border-radius: 6px;
-  height: 40px;
-  width: 160px;
-  font-size: 18px;
-  cursor: pointer;
-  :hover {
-    background-image: linear-gradient(#1b1a1c, #114373);
-  }
-`;
-
-const Filter = styled.button`
-  border: none;
-  margin: 4px 8px;
-  background-image: linear-gradient(#1b1a1c, #0f0e11);
-  color: white;
-  border-radius: 6px;
-  height: 40px;
-  width: 120px;
-  font-size: 18px;
-  cursor: pointer;
-  :hover {
-    background-image: linear-gradient(#1b1a1c, #114373);
-  }
-`;
-
-const Sort = styled.button`
-  border: none;
-  margin: 4px 8px;
-  background-image: linear-gradient(#1b1a1c, #0f0e11);
-  color: white;
-  border-radius: 6px;
-  height: 40px;
-  width: 120px;
-  font-size: 18px;
-  cursor: pointer;
-  :hover {
-    background-image: linear-gradient(#1b1a1c, #114373);
-  }
-`;
-
-const Set = styled.button`
-  border: none;
-  margin: 4px 8px;
-  background-image: linear-gradient(#1b1a1c, #0f0e11);
-  color: white;
-  border-radius: 6px;
-  height: 40px;
-  width: 120px;
-  font-size: 18px;
-  cursor: pointer;
-  :hover {
-    background-image: linear-gradient(#1b1a1c, #114373);
-  }
-`;
-
-const Home = styled.button`
-  border: none;
-  margin: 4px 8px;
-  background-image: linear-gradient(#1b1a1c, #0f0e11);
-  color: white;
-  border-radius: 6px;
-  height: 40px;
-  width: 120px;
-  font-size: 18px;
-  cursor: pointer;
-  :hover {
-    background-image: linear-gradient(#1b1a1c, #114373);
-  }
-`;
-
 const AreaBed = styled.div`
   min-width: 100px;
   padding-left: 5px;
@@ -283,28 +188,4 @@ const LOS = styled.div`
 const ResultsTitle = styled.div`
   min-width: 800px;
   align-self: center;
-`;
-
-const AreaButtonLeftSide = styled.div`
-  width: 60px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const AreaButtonDesc = styled.div`
-  margin: 0 auto;
-  color: #a3a8a5;
-`;
-
-const AreaButtonTriangle = styled.div`
-  margin: 0 auto;
-  color: #070607;
-  text-shadow: 1px 1px 2px #888888;
-`;
-
-const AreaButtonRightSide = styled.div`
-  font-size: 16px;
-  align-self: center;
-  margin-left: 20px;
-  color: #a3a8a5;
 `;
