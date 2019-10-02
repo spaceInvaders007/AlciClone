@@ -75,18 +75,21 @@ class Results extends React.Component {
   };
 
   handleAreaClick = event => {
-    console.log(event.value);
-    //event.persist();
-    // this.setState({
-    //   areaId: event
-    // });
+    console.log(event);
+    // console.log(event.persist());
+    this.setState({
+      areaId: "2",
+      area: "Gastro"
+    });
   };
+
+  componentDidUpdate() {}
   render() {
     return (
       <div className="App">
         <header className="App-header"></header>
         <TopNav
-          handleAreaClick={this.handleAreaClick}
+          handleClickArea={this.handleAreaClick}
           area={this.state.area}
           areas={this.state.areas}
           handleHomeClick={this.handleHomeClick}
