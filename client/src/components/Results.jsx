@@ -74,12 +74,21 @@ class Results extends React.Component {
     this.props.hideResultsDisplay();
   };
 
-  handleAreaClick = event => {
-    console.log(event);
-    // console.log(event.persist());
+  // handleAreaClick = event => {
+  //   console.log(event);
+  //   // console.log(event.persist());
+  //   this.setState({
+  //     areaId: "2",
+  //     area: "Gastro"
+  //   });
+  // };
+
+  handleGastroClick = area => {
+    let areas = ["Blank", "Surgery", "Gastro", "Neuro", "Oncol", "Ophthal"];
+    console.log(area);
     this.setState({
-      areaId: "2",
-      area: "Gastro"
+      areaId: area,
+      area: areas[area]
     });
   };
 
@@ -89,10 +98,11 @@ class Results extends React.Component {
       <div className="App">
         <header className="App-header"></header>
         <TopNav
-          handleClickArea={this.handleAreaClick}
+          //   handleClickArea={this.handleAreaClick}
           area={this.state.area}
           areas={this.state.areas}
           handleHomeClick={this.handleHomeClick}
+          handleGastroClick={this.handleGastroClick}
         />
 
         <BlueBar>
