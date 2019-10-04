@@ -1,8 +1,6 @@
 import React from "react";
 import Results from "./components/Results.jsx";
 import styled from "styled-components";
-//import logo from './logo.svg';
-//import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -53,7 +51,6 @@ class App extends React.Component {
             hideResultsDisplay={this.hideResultsDisplay}
           />
         </ResultsWrapper>
-        {/* <Results style={{display: this.state.resultsDisplay}}/> */}
       </AppWrapper>
     );
   }

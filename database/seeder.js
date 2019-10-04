@@ -208,7 +208,6 @@ var seedDoctors = function() {
       areaId: Math.floor(Math.random() * 5) + 1
     });
   }
-  //console.log(doctors);
 
   db.insertManyDoctors(doctors, err => {
     if (err) {
@@ -262,7 +261,6 @@ var seedRecords = function() {
       description: faker.lorem.paragraph()
     });
   }
-  //console.log(doctors);
 
   db.insertManyRecords(records, err => {
     if (err) {
@@ -323,9 +321,6 @@ var seedBeds = function() {
         areaId: j,
         patientId: Math.floor(Math.random() * 300) + 1,
         LOS: randomTime(),
-        // `${Math.floor(Math.random() * 24) + 1}:${Math.floor(
-        //   Math.random() * 59
-        // ) + 0}`,
         doctorId: Math.floor(Math.random() * 50) + 1,
         results: resultsRandomizer()
       });

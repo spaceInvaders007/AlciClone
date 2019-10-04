@@ -42,19 +42,28 @@ class Clock extends React.Component {
     let angle = (timeDiff * 360) / 240;
     var end = ((angle * 2) / 360 + 1.5) * Math.PI;
     // console.log(end);
-    if (timeDiff > Number("240") || timeDiff < Number("0")) {
-      ctx.fillStyle = "grey";
-      ctx.font = "16px Helvetica, Arial, sans-serif";
-      ctx.fillText(this.props.LOS, 0, 30);
-      ctx.fillText("hours", 0, 30);
-    } else if (timeDiff < Number("240") && timeDiff > Number("180")) {
+    // if (timeDiff > Number("240") || timeDiff < Number("0")) {
+    //   ctx.fillStyle = "grey";
+    //   ctx.font = "16px Helvetica, Arial, sans-serif";
+    //   ctx.fillText(this.props.LOS, 0, 30);
+
+    if (timeDiff < Number("240") && timeDiff > Number("180")) {
       //the range is from 0 to 240, so I need to calculate the equivalent to a 360 degree angle
       drawPieSlice(ctx, 20, 20, 17, start, end, "#C53A34");
+      ctx.fillStyle = "white";
+      ctx.font = "16px Helvetica, Arial, sans-serif";
+      ctx.fillText("4h", 9, 35);
     } else if (timeDiff < Number("180") && timeDiff > Number("120")) {
       //the range is from 0 to 240, so I need to calculate the equivalent to a 360 degree angle
       drawPieSlice(ctx, 20, 20, 17, start, end, "#E56812");
+      ctx.fillStyle = "white";
+      ctx.font = "16px Helvetica, Arial, sans-serif";
+      ctx.fillText("4h", 9, 35);
     } else if (timeDiff < Number("120") && timeDiff > Number("0")) {
       drawPieSlice(ctx, 20, 20, 17, start, end, "#058D52");
+      ctx.fillStyle = "white";
+      ctx.font = "16px Helvetica, Arial, sans-serif";
+      ctx.fillText("4h", 9, 35);
     }
   }
 

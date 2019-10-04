@@ -29,26 +29,44 @@ class TopNav extends React.Component {
   handleAllAreasClick = () => {
     this.props.handleAreaClick("0");
     this.props.toggleAllResults();
+    this.setState({
+      showMenu: false
+    });
   };
 
   handleSurgeryClick = () => {
     this.props.handleAreaClick("1");
+    this.setState({
+      showMenu: false
+    });
   };
 
   handleGastroClick = () => {
     this.props.handleAreaClick("2");
+    this.setState({
+      showMenu: false
+    });
   };
 
   handleNeuroClick = () => {
     this.props.handleAreaClick("3");
+    this.setState({
+      showMenu: false
+    });
   };
 
   handleOncolClick = () => {
     this.props.handleAreaClick("4");
+    this.setState({
+      showMenu: false
+    });
   };
 
   handleOphthalClick = () => {
     this.props.handleAreaClick("5");
+    this.setState({
+      showMenu: false
+    });
   };
 
   render() {

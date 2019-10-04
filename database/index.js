@@ -114,62 +114,6 @@ const readOneArea = function(id, cb) {
   });
 };
 
-// const selectAll = function(cb) {
-//   return connection.query("SELECT * FROM timers", cb);
-// };
-
-// //how do you select one from list in mysql
-// // const readOne = (id, callback) => {
-// //   var text = items[id];
-// //   if (!text) {
-// //     callback(new Error(`No item with id: ${id}`));
-// //   } else {
-// //     callback(null, { id, text });
-// //   }
-// // };
-
-// const readOne = function(id, cb) {
-//   let sql = "SELECT * FROM timers WHERE id = ?";
-//   connection.query(sql, [id], (error, result) => {
-//     if (error) {
-//       cb(console.error(error.message));
-//     } else {
-//       cb(null, result);
-//     }
-//   });
-// };
-
-// const updateOne = function(timer, cb) {
-//   var { hours, minutes, seconds, id } = timer;
-//   console.log(timer, "this is database timer");
-//   console.log(hours, "this is hours ");
-//   var params = [hours, minutes, seconds, id];
-//   let sql =
-//     "UPDATE timers SET hours = ?, minutes = ?, seconds = ?  WHERE id = ?";
-//   connection.query(sql, params, (error, result) => {
-//     if (error) {
-//       cb(console.error(error.message));
-//     } else {
-//       cb(null, result);
-//     }
-//   });
-// };
-
-// const insertOne = function(timer, cb) {
-//   connection.query("INSERT IGNORE INTO timers SET ?", timer, cb);
-// };
-
-// const deleteOne = function(id, cb) {
-//   let sql = "DELETE FROM timers WHERE id = ?";
-//   connection.query(sql, [id], (error, result) => {
-//     if (error) {
-//       cb(console.error(error.message));
-//     } else {
-//       cb(null, result);
-//     }
-//   });
-// };
-
 module.exports = {
   selectAllPatients,
   insertOnePatient,
@@ -184,36 +128,4 @@ module.exports = {
   selectAllAreas,
   readOneArea,
   selectAllResults
-  // selectAll,
-  // insertOne,
-  // readOne,
-  // deleteOne,
-  // updateOne
 };
-
-// create table if not exists doctors(
-//                           doctorId INT NOT NULL UNIQUE AUTO_INCREMENT,
-//                           lastName VARCHAR (50) NOT NULL,
-//                           firstName VARCHAR (50) NOT NULL,
-//                           areaId INT,
-//                           FOREIGN KEY (areaId)
-//                               REFERENCES areas(areaId),
-//                           PRIMARY KEY (doctorId)
-//                         );
-
-// create table if not exists results(
-//                           resultId INT NOT NULL UNIQUE AUTO_INCREMENT,
-//                           studyType VARCHAR (10) NOT NULL,
-//                           PRIMARY KEY (resultId)
-//   );
-
-// create table if not exists records(
-//                         recordId INT NOT NULL UNIQUE AUTO_INCREMENT,
-//                         patientId INT NOT NULL,
-//                         doctorId INT NOT NULL,
-//                         description VARCHAR (500) NOT NULL,
-//                         FOREIGN KEY (patientId)
-//                             REFERENCES patients(patientId),
-//                         FOREIGN KEY (doctorId)
-//                             REFERENCES doctors(doctorId),
-//                         PRIMARY KEY (recordId)

@@ -137,9 +137,11 @@ export default LOS;
 const LOS1 = styled.div`
   display: flex;
   flex-direction: column;
+  color: grey;
 `;
 
 const LOS2 = styled.div`
   display: flex;
   flex-direction: column;
+  color: grey;
 `;

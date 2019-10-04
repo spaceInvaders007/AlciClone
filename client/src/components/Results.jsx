@@ -97,7 +97,6 @@ class Results extends React.Component {
     });
   };
 
-  componentDidUpdate() {}
   render() {
     const { date } = this.props;
     return (
