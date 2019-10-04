@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Result from "./Result.jsx";
+import LOS from "./LOS.jsx";
 
 class Rows extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Rows extends React.Component {
       randomRead: "",
       backgroundImage: ""
     };
+    this.canvasRef = React.createRef();
   }
 
   componentDidMount() {
@@ -33,12 +35,14 @@ class Rows extends React.Component {
   }
 
   render() {
+    let areas = ["Blank", "Surgery", "Gastro", "Neuro", "Oncol", "Ophthal"];
+    const { date } = this.props;
     return (
       <div className="row">
         <RowWrapper number={this.props.number}>
           <AreaBedWrapper>
             <AreaBed>
-              <Area>{this.props.area}</Area>
+              <Area>{areas[this.props.bed.areaId]}</Area>
               <Bed>{this.props.bed.bedNumber}</Bed>
             </AreaBed>
           </AreaBedWrapper>
@@ -62,11 +66,21 @@ class Rows extends React.Component {
             <Age>{this.props.patientAge[0]}y</Age>
           </GenderAge>
           <LosWrapper>
-            <Los>{this.props.bed.LOS}</Los>
+            <Los>
+              <LOS
+                LOS={this.props.bed.LOS}
+                now={this.props.now}
+                date={this.props.date}
+              />
+              {/* <canvas ref="canvas" width={20} height={20} /> */}
+              {/* <canvas ref={this.canvasRef} /> */}
+              {/* {this.LosClock()} */}
+              {/* {this.props.bed.LOS} */}
+            </Los>
           </LosWrapper>
           <Results>
             {this.state.results.map((result, index) => {
-              return <Result result={result} key={index} />;
+              return <Result result={result} key={index} date={date} />;
             })}
           </Results>
           <ReadResultsCounter background={this.state.backgroundImage}>

@@ -12,9 +12,11 @@ class Results extends React.Component {
       areaId: "1",
       patients: [],
       doctors: [],
-      area: "",
+      area: "Surgery",
       results: [],
-      areas: []
+      areas: [],
+      allResults: false,
+      now: ""
     };
   }
 
@@ -43,14 +45,14 @@ class Results extends React.Component {
     } catch (err) {
       console.error("Encountered error fetching doctors", err);
     }
-    try {
-      await fetch("/areas/" + this.state.areaId);
-      let response = await fetch("/areas/" + this.state.areaId);
-      let area = await response.json();
-      this.setState({ area: area[0].areaName });
-    } catch (err) {
-      console.error("Encountered error fetching areas", err);
-    }
+    // try {
+    //   await fetch("/areas/" + this.state.areaId);
+    //   let response = await fetch("/areas/" + this.state.areaId);
+    //   let area = await response.json();
+    //   this.setState({ area: area[1].areaName });
+    // } catch (err) {
+    //   console.error("Encountered error fetching areas", err);
+    // }
     try {
       await fetch("/results");
       let response = await fetch("/results");
@@ -68,32 +70,36 @@ class Results extends React.Component {
     } catch (err) {
       console.error("Encountered error fetching areas", err);
     }
+    let date = new Date();
+    let now = `${date.getHours()}:${date.getMinutes()}`;
+    this.setState({
+      now
+    });
   }
 
   handleHomeClick = () => {
     this.props.hideResultsDisplay();
   };
 
-  // handleAreaClick = event => {
-  //   console.log(event);
-  //   // console.log(event.persist());
-  //   this.setState({
-  //     areaId: "2",
-  //     area: "Gastro"
-  //   });
-  // };
+  handleAreaClick = area => {
+    let areas = ["All Areas", "Surgery", "Gastro", "Neuro", "Oncol", "Ophthal"];
 
-  handleGastroClick = area => {
-    let areas = ["Blank", "Surgery", "Gastro", "Neuro", "Oncol", "Ophthal"];
-    console.log(area);
     this.setState({
       areaId: area,
-      area: areas[area]
+      area: areas[area],
+      allResults: false
+    });
+  };
+
+  toggleAllResults = () => {
+    this.setState({
+      allResults: true
     });
   };
 
   componentDidUpdate() {}
   render() {
+    const { date } = this.props;
     return (
       <div className="App">
         <header className="App-header"></header>
@@ -102,7 +108,8 @@ class Results extends React.Component {
           area={this.state.area}
           areas={this.state.areas}
           handleHomeClick={this.handleHomeClick}
-          handleGastroClick={this.handleGastroClick}
+          handleAreaClick={this.handleAreaClick}
+          toggleAllResults={this.toggleAllResults}
         />
 
         <BlueBar>
@@ -113,11 +120,17 @@ class Results extends React.Component {
         </BlueBar>
         {this.state.beds
           .filter(bed => {
-            return bed.areaId === Number(this.state.areaId);
+            if (this.state.allResults === false) {
+              return bed.areaId === Number(this.state.areaId);
+            } else {
+              return bed;
+            }
           })
           .map(bed => {
             return (
               <Rows
+                date={date}
+                now={this.state.now}
                 bed={bed}
                 number={bed.bedNumber}
                 key={bed.bedId}

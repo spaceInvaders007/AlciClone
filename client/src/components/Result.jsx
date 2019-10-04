@@ -23,8 +23,16 @@ class Result extends React.Component {
     });
   }
 
+  randomTime = () => {
+    let hrs = Math.round(Math.random() * 23);
+    let mins = Math.round(Math.random() * 60);
+    var hFormat = hrs < 10 ? "0" : "";
+    var mFormat = mins < 10 ? "0" : "";
+    return String(hFormat + hrs + ":" + mFormat + mins + " ");
+  };
+
   render() {
-    let date = new Date();
+    const { date } = this.props;
     var months = [
       "Jan",
       "Feb",
@@ -42,8 +50,8 @@ class Result extends React.Component {
     let preday = date.getDay() - Math.floor(Math.random() * 4 + 1);
     let day = Math.abs(preday);
     let month = months[date.getMonth()];
-    let hour = Math.floor(Math.random() * 18 + 1);
-    let minutes = Math.floor(Math.random() * 59 + 1);
+    // let hour = Math.floor(Math.random() * 18 + 1);
+    // let minutes = Math.floor(Math.random() * 59 + 1);
     return (
       <div className="result-block">
         <ResultWrapper
@@ -52,7 +60,7 @@ class Result extends React.Component {
         >
           <Name>{this.props.result}</Name>
           <DateTime>
-            {hour}:{minutes} {day} {month}
+            {this.randomTime()} {day} {month}
           </DateTime>
         </ResultWrapper>
       </div>

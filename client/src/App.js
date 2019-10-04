@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       resultsDisplay: "none",
-      resultsButtonDisplay: "inline"
+      resultsButtonDisplay: "inline",
+      date: ""
     };
   }
 
@@ -27,6 +28,13 @@ class App extends React.Component {
     });
   };
 
+  componentDidMount() {
+    let date = new Date();
+    this.setState({
+      date
+    });
+  }
+
   render() {
     return (
       <AppWrapper>
@@ -40,6 +48,7 @@ class App extends React.Component {
         </ResultButtonWrapper>
         <ResultsWrapper style={{ display: this.state.resultsDisplay }}>
           <Results
+            date={this.state.date}
             resultsDisplay={this.state.resultsDisplay}
             hideResultsDisplay={this.hideResultsDisplay}
           />
