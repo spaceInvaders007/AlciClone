@@ -298,6 +298,7 @@ var seedBeds = function() {
       { studyType: "Ddim" }
     ];
     let resultString = "";
+
     let times = Math.floor(Math.random() * 8) + 3;
     for (let i = 0; i < times; i++) {
       let result = Math.floor(Math.random() * 17);
@@ -306,15 +307,25 @@ var seedBeds = function() {
     }
     return resultString;
   };
+
+  randomTime = () => {
+    hrs = Math.round(Math.random() * 23);
+    mins = Math.round(Math.random() * 60);
+    var hFormat = hrs < 10 ? "0" : "";
+    var mFormat = mins < 10 ? "0" : "";
+    return String(hFormat + hrs + ":" + mFormat + mins + " ");
+  };
+
   for (let j = 1; j < 6; j++) {
-    for (let i = 1; i < 51; i++) {
+    for (let i = 1; i < 26; i++) {
       beds.push({
         bedNumber: i,
         areaId: j,
         patientId: Math.floor(Math.random() * 300) + 1,
-        LOS: `${Math.floor(Math.random() * 24) + 1}:${Math.floor(
-          Math.random() * 59
-        ) + 0}`,
+        LOS: randomTime(),
+        // `${Math.floor(Math.random() * 24) + 1}:${Math.floor(
+        //   Math.random() * 59
+        // ) + 0}`,
         doctorId: Math.floor(Math.random() * 50) + 1,
         results: resultsRandomizer()
       });
